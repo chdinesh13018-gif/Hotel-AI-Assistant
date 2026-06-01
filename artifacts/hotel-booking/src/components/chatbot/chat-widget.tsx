@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useCreateGeminiConversation, useListGeminiMessages } from "@workspace/api-client-react";
+import { useCreateGeminiConversation, useListGeminiMessages, getListGeminiMessagesQueryKey } from "@workspace/api-client-react";
 import { useToast } from "@/hooks/use-toast";
 
 type Message = {
@@ -25,7 +25,7 @@ export function ChatWidget() {
   
   const createConversation = useCreateGeminiConversation();
   const { data: history } = useListGeminiMessages(conversationId as number, { 
-    query: { enabled: !!conversationId } 
+    query: { enabled: !!conversationId, queryKey: getListGeminiMessagesQueryKey(conversationId as number) } 
   });
 
   // Load history when available

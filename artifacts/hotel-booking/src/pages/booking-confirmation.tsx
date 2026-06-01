@@ -2,7 +2,7 @@ import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { useGetBooking } from "@workspace/api-client-react";
+import { useGetBooking, getGetBookingQueryKey } from "@workspace/api-client-react";
 import { useRoute, Link } from "wouter";
 import { CheckCircle, Calendar, Users, Home, Loader2, IndianRupee } from "lucide-react";
 import { format } from "date-fns";
@@ -12,7 +12,7 @@ export default function BookingConfirmation() {
   const id = params?.id ? parseInt(params.id) : 0;
   
   const { data: booking, isLoading, isError } = useGetBooking(id, {
-    query: { enabled: !!id }
+    query: { enabled: !!id, queryKey: getGetBookingQueryKey(id) }
   });
 
   if (isLoading) {
