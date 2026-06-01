@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Grand Vista Hotel"
+version = "1.0.0"
+id = "artifacts/hotel-booking"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24960
+
+[services.development]
+run = "pnpm --filter @workspace/hotel-booking run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/hotel-booking", "run", "build" ]
+publicDir = "artifacts/hotel-booking/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24960"
+BASE_PATH = "/"

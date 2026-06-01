@@ -1,0 +1,127 @@
+Build a complete full-stack AI Hotel Booking Assistant web application.
+
+Tech Stack:
+
+* React.js frontend
+* Node.js + Express backend
+* Tailwind CSS for styling
+* Gemini API integration for AI responses
+* Store hotel data in JSON format
+* Responsive design for desktop and mobile
+
+Project Requirements:
+
+Create a modern hotel booking website with the following pages:
+
+1. Home Page
+
+* Hero section with hotel image
+* Welcome message
+* Search rooms button
+* Hotel highlights
+* Amenities section
+* Customer reviews
+
+2. Rooms Page
+
+* Standard Room (₹2500/night)
+* Deluxe Room (₹4500/night)
+* Suite Room (₹7000/night)
+* Show room images, descriptions, pricing, and availability
+* Book Now button for each room
+
+3. Booking Page
+
+* Guest Name
+* Phone Number
+* Email
+* Check-in Date
+* Check-out Date
+* Number of Guests
+* Room Type Selection
+* Booking Confirmation Message
+
+4. AI Hotel Assistant Chatbot
+
+* Floating chatbot icon on every page
+* Chat window opens on click
+* AI assistant answers questions about:
+
+  * Room availability
+  * Room pricing
+  * Amenities
+  * Hotel location
+  * Check-in/check-out timings
+  * Booking process
+  * Nearby attractions
+  * Hotel policies
+* Integrate Gemini API
+* Maintain conversation history
+
+5. Hotel Information Knowledge Base
+   Use the following information:
+
+Hotel Name: Grand Vista Hotel
+
+Location:
+Hyderabad, India
+
+Amenities:
+
+* Free WiFi
+* Swimming Pool
+* Restaurant
+* Gym
+* Free Parking
+* Airport Pickup
+* Conference Hall
+* 24/7 Reception
+
+Check-in Time:
+12:00 PM
+
+Check-out Time:
+11:00 AM
+
+Nearby Attractions:
+
+* Charminar
+* Golconda Fort
+* Hussain Sagar Lake
+* Ramoji Film City
+
+Policies:
+
+* Valid ID required
+* No smoking inside rooms
+* Free cancellation within 24 hours
+* Pets not allowed
+
+6. AI Prompt Engineering
+   Create a system prompt:
+
+"You are a professional hotel booking assistant for Grand Vista Hotel. Answer politely and accurately using only the provided hotel information. If room availability is requested, recommend suitable rooms based on the user's budget. If information is unavailable, politely ask the guest to contact reception."
+
+7. Backend APIs
+
+* GET /rooms
+* POST /booking
+* POST /chat
+* GET /hotel-info
+
+8. Additional Features
+
+* Loading animations
+* Error handling
+* Dark/light mode
+* Clean modern UI
+* Mobile responsive design
+* Professional hotel theme
+
+9. Deployment Ready
+
+* Environment variables for Gemini API key
+* README with setup instructions
+* Production-ready folder structure
+
+Generate all frontend, backend, components, APIs, and styling files required to run the application successfully.
