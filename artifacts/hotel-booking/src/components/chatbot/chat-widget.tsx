@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { MessageSquare, X, Send, Bot, User, Loader2 } from "lucide-react";
+import { MessageSquare, X, Send, Bot, Loader2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -146,14 +146,36 @@ export function ChatWidget() {
 
   return (
     <>
-      <Button
-        onClick={isOpen ? () => setIsOpen(false) : handleOpen}
-        className="fixed bottom-6 right-6 h-14 w-14 rounded-full shadow-xl z-50 transition-transform hover:scale-105"
-        size="icon"
-        data-testid="button-chat-widget"
-      >
-        {isOpen ? <X className="h-6 w-6" /> : <MessageSquare className="h-6 w-6" />}
-      </Button>
+      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2">
+        {!isOpen && (
+          <div className="bg-primary text-primary-foreground text-xs font-medium px-3 py-1 rounded-full shadow-md animate-bounce">
+            Ask AI Concierge ✨
+          </div>
+        )}
+        <div className="relative">
+          {!isOpen && (
+            <span className="absolute inset-0 rounded-full bg-primary opacity-30 animate-ping" />
+          )}
+          <Button
+            onClick={isOpen ? () => setIsOpen(false) : handleOpen}
+            className="relative h-14 rounded-full shadow-2xl transition-all hover:scale-105 hover:shadow-primary/40 px-5 gap-2 text-base font-semibold"
+            data-testid="button-chat-widget"
+          >
+            {isOpen ? (
+              <>
+                <X className="h-5 w-5" />
+                <span>Close</span>
+              </>
+            ) : (
+              <>
+                <Sparkles className="h-5 w-5" />
+                <span>Chat with us</span>
+                <MessageSquare className="h-5 w-5" />
+              </>
+            )}
+          </Button>
+        </div>
+      </div>
 
       {isOpen && (
         <Card className="fixed bottom-24 right-6 w-80 sm:w-96 h-[500px] max-h-[calc(100vh-8rem)] shadow-2xl z-50 flex flex-col border-primary/20 animate-in slide-in-from-bottom-5">
