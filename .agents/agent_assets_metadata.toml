@@ -1,0 +1,20 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "ZhabGXdY3jYcTnWMKujQ5"
+uri = "file://artifacts/hotel-booking/src/assets/room-standard.png"
+type = "image"
+title = "Standard room interior"
+
+[[generated]]
+id = "MKhVoFbllOe5WcraqlnN5"
+uri = "file://artifacts/hotel-booking/src/assets/room-deluxe.png"
+type = "image"
+title = "Deluxe room with city view"
+
+[[generated]]
+id = "bPllLxKxoev8FSL8Z41-d"
+uri = "file://artifacts/hotel-booking/src/assets/room-suite.png"
+type = "image"
+title = "Luxury suite with jacuzzi"

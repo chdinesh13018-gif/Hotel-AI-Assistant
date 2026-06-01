@@ -10,6 +10,12 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: hotel
+    description: Hotel information and rooms
+  - name: bookings
+    description: Booking operations
+  - name: gemini
+    description: Gemini AI chat operations
 paths:
   /healthz:
     get:
@@ -24,6 +30,254 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /hotel-info:
+    get:
+      operationId: getHotelInfo
+      tags: [hotel]
+      summary: Get hotel information
+      responses:
+        "200":
+          description: Hotel information
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HotelInfo"
+
+  /rooms:
+    get:
+      operationId: listRooms
+      tags: [hotel]
+      summary: List all available rooms
+      responses:
+        "200":
+          description: List of rooms
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Room"
+
+  /rooms/{id}:
+    get:
+      operationId: getRoom
+      tags: [hotel]
+      summary: Get a specific room
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Room details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Room"
+        "404":
+          description: Room not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+
+  /bookings:
+    get:
+      operationId: listBookings
+      tags: [bookings]
+      summary: List all bookings
+      responses:
+        "200":
+          description: List of bookings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Booking"
+    post:
+      operationId: createBooking
+      tags: [bookings]
+      summary: Create a new booking
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BookingInput"
+      responses:
+        "201":
+          description: Booking created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Booking"
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+
+  /bookings/{id}:
+    get:
+      operationId: getBooking
+      tags: [bookings]
+      summary: Get a booking by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Booking details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Booking"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+
+  /bookings/stats:
+    get:
+      operationId: getBookingStats
+      tags: [bookings]
+      summary: Get booking statistics summary
+      responses:
+        "200":
+          description: Booking statistics
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BookingStats"
+
+  /gemini/conversations:
+    get:
+      operationId: listGeminiConversations
+      tags: [gemini]
+      summary: List all conversations
+      responses:
+        "200":
+          description: List of conversations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/GeminiConversation"
+    post:
+      operationId: createGeminiConversation
+      tags: [gemini]
+      summary: Create a new conversation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GeminiConversationInput"
+      responses:
+        "201":
+          description: Created conversation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeminiConversation"
+
+  /gemini/conversations/{id}:
+    get:
+      operationId: getGeminiConversation
+      tags: [gemini]
+      summary: Get conversation with messages
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Conversation with messages
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeminiConversationWithMessages"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeminiError"
+    delete:
+      operationId: deleteGeminiConversation
+      tags: [gemini]
+      summary: Delete a conversation
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeminiError"
+
+  /gemini/conversations/{id}/messages:
+    get:
+      operationId: listGeminiMessages
+      tags: [gemini]
+      summary: List messages in a conversation
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: List of messages
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/GeminiMessage"
+    post:
+      operationId: sendGeminiMessage
+      tags: [gemini]
+      summary: Send a message and receive an AI response (SSE stream)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GeminiMessageInput"
+      responses:
+        "200":
+          description: SSE stream of assistant response chunks
+          content:
+            text/event-stream: {}
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +288,250 @@ components:
       required:
         - status
 
+    HotelInfo:
+      type: object
+      properties:
+        name:
+          type: string
+        location:
+          type: string
+        checkInTime:
+          type: string
+        checkOutTime:
+          type: string
+        amenities:
+          type: array
+          items:
+            type: string
+        nearbyAttractions:
+          type: array
+          items:
+            type: string
+        policies:
+          type: array
+          items:
+            type: string
+      required:
+        - name
+        - location
+        - checkInTime
+        - checkOutTime
+        - amenities
+        - nearbyAttractions
+        - policies
+
+    Room:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        type:
+          type: string
+        pricePerNight:
+          type: number
+        description:
+          type: string
+        amenities:
+          type: array
+          items:
+            type: string
+        maxGuests:
+          type: integer
+        available:
+          type: boolean
+        imageUrl:
+          type: ["string", "null"]
+      required:
+        - id
+        - name
+        - type
+        - pricePerNight
+        - description
+        - amenities
+        - maxGuests
+        - available
+
+    BookingInput:
+      type: object
+      properties:
+        guestName:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        checkInDate:
+          type: string
+        checkOutDate:
+          type: string
+        numberOfGuests:
+          type: integer
+        roomType:
+          type: string
+        roomId:
+          type: integer
+        specialRequests:
+          type: ["string", "null"]
+      required:
+        - guestName
+        - phone
+        - email
+        - checkInDate
+        - checkOutDate
+        - numberOfGuests
+        - roomType
+        - roomId
+
+    Booking:
+      type: object
+      properties:
+        id:
+          type: integer
+        guestName:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        checkInDate:
+          type: string
+        checkOutDate:
+          type: string
+        numberOfGuests:
+          type: integer
+        roomType:
+          type: string
+        roomId:
+          type: integer
+        specialRequests:
+          type: ["string", "null"]
+        status:
+          type: string
+        totalPrice:
+          type: number
+        confirmationCode:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - guestName
+        - phone
+        - email
+        - checkInDate
+        - checkOutDate
+        - numberOfGuests
+        - roomType
+        - roomId
+        - status
+        - totalPrice
+        - confirmationCode
+        - createdAt
+
+    BookingStats:
+      type: object
+      properties:
+        totalBookings:
+          type: integer
+        confirmedBookings:
+          type: integer
+        totalRevenue:
+          type: number
+        popularRoomType:
+          type: string
+      required:
+        - totalBookings
+        - confirmedBookings
+        - totalRevenue
+        - popularRoomType
+
+    ApiError:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
+
+    GeminiConversation:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - title
+        - createdAt
+
+    GeminiMessage:
+      type: object
+      properties:
+        id:
+          type: integer
+        conversationId:
+          type: integer
+        role:
+          type: string
+        content:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - conversationId
+        - role
+        - content
+        - createdAt
+
+    GeminiConversationInput:
+      type: object
+      properties:
+        title:
+          type: string
+      required:
+        - title
+
+    GeminiMessageInput:
+      type: object
+      properties:
+        content:
+          type: string
+      required:
+        - content
+
+    GeminiConversationWithMessages:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        messages:
+          type: array
+          items:
+            $ref: "#/components/schemas/GeminiMessage"
+      required:
+        - id
+        - title
+        - createdAt
+        - messages
+
+    GeminiError:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
