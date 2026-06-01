@@ -1,0 +1,85 @@
+export const hotelInfo = {
+  name: "Grand Vista Hotel",
+  location: "Hyderabad, India",
+  checkInTime: "12:00 PM",
+  checkOutTime: "11:00 AM",
+  amenities: [
+    "Free WiFi",
+    "Swimming Pool",
+    "Restaurant",
+    "Gym",
+    "Free Parking",
+    "Airport Pickup",
+    "Conference Hall",
+    "24/7 Reception",
+  ],
+  nearbyAttractions: [
+    "Charminar",
+    "Golconda Fort",
+    "Hussain Sagar Lake",
+    "Ramoji Film City",
+  ],
+  policies: [
+    "Valid ID required",
+    "No smoking inside rooms",
+    "Free cancellation within 24 hours",
+    "Pets not allowed",
+  ],
+};
+
+export const rooms = [
+  {
+    id: 1,
+    name: "Standard Room",
+    type: "standard",
+    pricePerNight: 2500,
+    description:
+      "A comfortable and well-appointed standard room with all essential amenities for a pleasant stay.",
+    amenities: ["Free WiFi", "AC", "TV", "Room Service", "Daily Housekeeping"],
+    maxGuests: 2,
+    available: true,
+    imageUrl: null,
+  },
+  {
+    id: 2,
+    name: "Deluxe Room",
+    type: "deluxe",
+    pricePerNight: 4500,
+    description:
+      "Spacious deluxe room with premium furnishings, city views, and enhanced amenities.",
+    amenities: [
+      "Free WiFi",
+      "AC",
+      "Smart TV",
+      "Mini Bar",
+      "Room Service",
+      "Work Desk",
+      "Premium Toiletries",
+    ],
+    maxGuests: 3,
+    available: true,
+    imageUrl: null,
+  },
+  {
+    id: 3,
+    name: "Suite Room",
+    type: "suite",
+    pricePerNight: 7000,
+    description:
+      "Our finest suite offering panoramic city views, a separate living area, and exclusive butler service.",
+    amenities: [
+      "Free WiFi",
+      "AC",
+      "Smart TV",
+      "Full Mini Bar",
+      "Butler Service",
+      "Jacuzzi",
+      "Separate Living Area",
+      "Premium Toiletries",
+      "Complimentary Breakfast",
+    ],
+    maxGuests: 4,
+    available: true,
+    imageUrl: null,
+  },
+];

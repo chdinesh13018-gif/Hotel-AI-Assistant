@@ -42,7 +42,7 @@ export default function Booking() {
   const initialRoomId = searchParams.get("room") ? Number(searchParams.get("room")) : undefined;
 
   const form = useForm<BookingFormValues>({
-    resolver: zodResolver(bookingSchema),
+    resolver: zodResolver(bookingSchema as any),
     defaultValues: {
       guestName: "",
       phone: "",
