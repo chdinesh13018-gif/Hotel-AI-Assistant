@@ -2,6 +2,9 @@
   "buildCommand": "vite build --config vite.config.ts",
   "outputDirectory": "dist/public",
   "rewrites": [
-    { "source": "/((?!api/).*)", "destination": "/index.html" }
+    {
+      "source": "/((?!api/).*)",
+      "destination": "/index.html"
+    }
   ]
 }
